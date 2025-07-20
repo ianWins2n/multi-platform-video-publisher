@@ -1,12 +1,19 @@
 "use client";
 import { saveVideoToDatabase } from "../../app/actions";
-import { CldUploadButton } from "next-cloudinary";
+import { CldUploadButton, CloudinaryUploadWidgetResults } from "next-cloudinary";
 
 export default function UploadVideo() {
-  const handleSuccess = (success: any) => {
-    console.log("success", success.info.secure_url);
-    saveVideoToDatabase(success.info.secure_url);
-  };
+    const handleSuccess = (results: CloudinaryUploadWidgetResults) => {
+        if (
+          results.info &&
+          typeof results.info === "object" &&
+          "secure_url" in results.info
+        ) {
+          const secureUrl = results.info.secure_url as string;
+          console.log("success", secureUrl);
+          saveVideoToDatabase(secureUrl);
+        }
+      };
   return (
     <CldUploadButton
       signatureEndpoint="/api/cloudinary-sign"
