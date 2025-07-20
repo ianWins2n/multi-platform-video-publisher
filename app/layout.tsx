@@ -4,7 +4,7 @@ import Header from "./Header";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "Superblog",
+  title: "Multi-platform video uploader",
   description: "A blog app using Next.js and Prisma",
 };
 
